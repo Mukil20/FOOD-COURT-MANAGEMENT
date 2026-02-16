@@ -1,52 +1,81 @@
-function showRegister() {
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("registerForm").style.display = "block";
-}
 
-function showLogin() {
-    document.getElementById("registerForm").style.display = "none";
-    document.getElementById("loginForm").style.display = "block";
-}
-function validateRegister() {
-    let email = document.getElementById("regEmail").value;
-    let password = document.getElementById("regPassword").value;
-    let confirmPassword = document.getElementById("regConfirm").value;
+const loginFormBox = document.getElementById("loginForm");
+const registerFormBox = document.getElementById("registerForm");
 
-    // Email validation
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
+
+const showRegisterBtn = document.getElementById("showRegisterBtn");
+const showLoginBtn = document.getElementById("showLoginBtn");
+
+
+const loginForm = document.getElementById("loginFormElement");
+const registerForm = document.getElementById("registerFormElement");
+
+
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+
+const regName = document.getElementById("regName");
+const regEmail = document.getElementById("regEmail");
+const regPassword = document.getElementById("regPassword");
+const regConfirm = document.getElementById("regConfirm");
+
+
+
+showRegisterBtn.addEventListener("click", () => {
+    loginFormBox.style.display = "none";
+    registerFormBox.style.display = "block";
+});
+
+
+showLoginBtn.addEventListener("click", () => {
+    registerFormBox.style.display = "none";
+    loginFormBox.style.display = "block";
+});
+
+
+
+
+registerForm.addEventListener("submit", function (e) {
+    e.preventDefault(); 
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(regEmail.value)) {
         alert("Please enter a valid email address");
-        return false;
+        return;
     }
 
-
-    if (password.length < 6) {
-        alert("Password must be at least 6 characters long");
-        return false;
+    if (regPassword.value.length < 6) {
+        alert("Password must be at least 6 characters");
+        return;
     }
 
-
-    if (password !== confirmPassword) {
+    if (regPassword.value !== regConfirm.value) {
         alert("Passwords do not match");
-        return false;
+        return;
     }
 
-    alert("Registration successful!");
-    return true;
-}
+    alert("Registration Successful ✅");
 
-function validateLogin() {
-    let email = document.getElementById("loginEmail").value;
-    let password = document.getElementById("loginPassword").value;
+   
+    registerForm.reset();
 
-    if (email === "" || password === "") {
+    
+    showLoginBtn.click();
+});
+
+
+
+
+loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (loginEmail.value === "" || loginPassword.value === "") {
         alert("Please fill all fields");
-        return false;
+        return;
     }
 
-    alert("Login successful!");
-    return true;
-}
+    alert("Login Successful ✅");
 
-
-
+    loginForm.reset();
+});
